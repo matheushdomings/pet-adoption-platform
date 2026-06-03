@@ -1,2 +1,26 @@
-# pet-adoption-platform
-Full stack veterinary patient management system with CRUD operations, Docker, CI/CD (GitHub Actions) and automated tests.
+# Pet Adoption Platform
+
+Web application for pet adoption management.
+
+## Current Features
+
+- Pet listing API
+- Pet registration API
+- RESTful endpoints with Express
+
+## Technologies
+
+- Node.js
+- Express
+
+## Planned Features
+
+- MongoDB
+- React
+- User authentication
+- Image upload
+- Docker
+- GitHub Actions
+- Automated tests
+
+Project under development.
