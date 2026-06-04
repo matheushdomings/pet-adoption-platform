@@ -1,20 +1,17 @@
 const Pet = require("../models/Pet");
 
-const getPets = async (req, res) => {
+const getPets = async (req, res, next) => {
     try {
         const pets = await Pet.find();
 
         res.json(pets);
 
     } catch (error) {
-        res.status(500).json({
-            mensagem: "Erro ao buscar pets",
-            erro: error.message
-        });
+        next(error);
     }
 };
 
-const getPetById = async (req, res) => {
+const getPetById = async (req, res, next) => {
     try {
         const pet = await Pet.findById(req.params.id);
 
@@ -27,28 +24,22 @@ const getPetById = async (req, res) => {
         res.json(pet);
 
     } catch (error) {
-        res.status(500).json({
-            mensagem: "Erro ao buscar pet",
-            erro: error.message
-        });
+        next(error);
     }
 };
 
-const createPet = async (req, res) => {
+const createPet = async (req, res, next) => {
     try {
         const pet = await Pet.create(req.body);
 
         res.status(201).json(pet);
 
     } catch (error) {
-        res.status(400).json({
-            mensagem: "Erro ao cadastrar pet",
-            erro: error.message
-        });
+        next(error);
     }
 };
 
-const updatePet = async (req, res) => {
+const updatePet = async (req, res, next) => {
     try {
         const pet = await Pet.findByIdAndUpdate(
             req.params.id,
@@ -65,14 +56,11 @@ const updatePet = async (req, res) => {
         res.json(pet);
 
     } catch (error) {
-        res.status(400).json({
-            mensagem: "Erro ao atualizar pet",
-            erro: error.message
-        });
+        next(error);
     }
 };
 
-const deletePet = async (req, res) => {
+const deletePet = async (req, res, next) => {
     try {
         const pet = await Pet.findByIdAndDelete(req.params.id);
 
@@ -88,10 +76,7 @@ const deletePet = async (req, res) => {
         });
 
     } catch (error) {
-        res.status(400).json({
-            mensagem: "Erro ao deletar pet",
-            erro: error.message
-        });
+        next(error);
     }
 };
 
