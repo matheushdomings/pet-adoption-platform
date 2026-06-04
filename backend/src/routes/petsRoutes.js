@@ -1,29 +1,77 @@
+const Pet = require("../models/Pet");
+
 const express = require("express");
 
 const router = express.Router();
 
-router.get("/pets", (req, res) => {
-    res.json([
-        {
-            nome: "Rex",
-            especie: "Cachorro"
-        },
-        {
-            nome: "Mia",            
-            especie: "Gato"
-        }
-    ]);
+router.get("/pets", async (req, res) => {
+    try {
+        const pets = await Pet.find();
+
+        res.json(pets);
+    }   catch (error) {
+        res.status(400).json({
+            mensagem: "Erro ao buscar pets",
+            erro: error.message
+        });
+    }
 });
 
-// router.post("/pets", (req, res) => {
-//     console.log(req.body);
+router.get("/pets/:id", async (req, res) => {
+    try {
+        const pet = await Pet.findById(req.params.id);
 
-//     pets.push(req.body);
+        res.json(pet);
+    }   catch (error) {
+        res.status(400).json({
+            mensagem: "Erro ao buscar pet",
+            erro: error.message
+        });
+    }
+});
 
-//     res.json({
-//         mensagem: "Pet recebido com sucesso",
-//         pet: req.body
-//     });
-// });
+router.put("/pets/:id", async (req, res) => {
+    try {
+        const pet = await Pet.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true }
+        );
 
-module.exports = router;    
+        res.json(pet);
+    }   catch (error) {
+            res.status(400).json({
+                mensagem: "Erro ao atualizar pet",
+                erro: error.message
+            });
+    }
+});
+
+router.delete("/pets/:id", async (req, res) => {
+    try {
+        const pet = await Pet.findByIdAndDelete(req.params.id);
+
+        res.json(pet);
+    }   catch (error) {
+            res.status(400).json({
+                mensagem: "Erro ao deletar pet",
+                erro: error.message
+        });
+    }
+});
+
+router.post("/pets", async (req, res) => {
+    try {
+        const pet = await Pet.create(req.body);
+        
+        res.status(201).json(pet); 
+    } catch (error) {
+        res.status(400).json({
+            mensagem: "Erro ao cadastrar pet",
+            erro: error.message
+        });
+    }   
+});
+
+module.exports = router;  
+
