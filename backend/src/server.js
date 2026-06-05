@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require("cors");
 
 const connectDB = require("./config/db");
 const petsRoutes = require("./routes/petsRoutes");
@@ -12,8 +13,9 @@ connectDB();
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
-app.use(petsRoutes);
+app.use(petsRoutes);    
 
 app.get("/", (req, res) => {
     res.send("Servidor atualizado pelo nodemon");
