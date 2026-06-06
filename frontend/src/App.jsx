@@ -20,6 +20,17 @@ function App() {
   buscarPets()
 }, [])
 
+const excluirPet = (id) => {
+  fetch(`http://localhost:3000/pets/${id}`, {
+    method: "DELETE"
+  })
+    .then(() => {
+      buscarPets()
+    })
+    .catch((error) => {
+      console.error("Erro ao excluir pet:", error)
+    })
+} 
   return (
     <div>
       <h1>Pet Adoption Platform</h1>
@@ -41,6 +52,8 @@ fetch("http://localhost:3000/pets", {
 })
 .then(() => {
   buscarPets()
+  setNome("")
+  setEspecie("")
 })
   }}
 >
@@ -69,6 +82,9 @@ fetch("http://localhost:3000/pets", {
     <div key={pet._id}>
       <h2>{pet.nome}</h2>
       <p>Espécie: {pet.especie}</p>
+
+<button onClick={() => excluirPet(pet._id)}>  Excluir
+</button>
     </div>
   ))
 }
