@@ -5,6 +5,7 @@ function App() {
   const [pets, setPets] = useState([])
   const [nome, setNome] = useState("")
   const [especie, setEspecie] = useState("")
+  const [petEditando, setPetEditando] = useState(null)
 
   const buscarPets = () => {
   fetch("http://localhost:3000/pets")
@@ -35,26 +36,49 @@ const excluirPet = (id) => {
     <div>
       <h1>Pet Adoption Platform</h1>
 <form
-  onSubmit={(event) => {
-    event.preventDefault()
+onSubmit={(event) => {
+  event.preventDefault()
 
-   const novoPet = {
-  nome,
-  especie
-}
+  const novoPet = {
+    nome,
+    especie
+  }
 
-fetch("http://localhost:3000/pets", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(novoPet)
-})
-.then(() => {
-  buscarPets()
-  setNome("")
-  setEspecie("")
-})
+  if (petEditando) {
+    fetch(`http://localhost:3000/pets/${petEditando._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(novoPet)
+    })
+      .then(() => {
+        buscarPets()
+        setNome("")
+        setEspecie("")
+        setPetEditando(null)
+      })
+      .catch((error) => {
+        console.error("Erro ao editar pet:", error)
+      })
+  } else {
+    fetch("http://localhost:3000/pets", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(novoPet)
+    })
+      .then(() => {
+        buscarPets()
+        setNome("")
+        setEspecie("")
+      })
+      .catch((error) => {
+        console.error("Erro ao cadastrar pet:", error)
+      })
+  }
+
   }}
 >
   <input
@@ -82,6 +106,16 @@ fetch("http://localhost:3000/pets", {
     <div key={pet._id}>
       <h2>{pet.nome}</h2>
       <p>Espécie: {pet.especie}</p>
+
+      <button
+  onClick={() => {
+    setPetEditando(pet)
+    setNome(pet.nome)
+    setEspecie(pet.especie)
+  }}
+>
+  Editar
+</button>
 
 <button onClick={() => excluirPet(pet._id)}>  Excluir
 </button>
