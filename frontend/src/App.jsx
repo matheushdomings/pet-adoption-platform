@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import PetForm from "./components/PetForm.jsx"
 
 function App() {
   const [pets, setPets] = useState([])
@@ -32,11 +33,8 @@ const excluirPet = (id) => {
       console.error("Erro ao excluir pet:", error)
     })
 } 
-  return (
-    <div>
-      <h1>Pet Adoption Platform</h1>
-<form
-onSubmit={(event) => {
+
+const salvarPet = (event) => {
   event.preventDefault()
 
   const novoPet = {
@@ -78,26 +76,20 @@ onSubmit={(event) => {
         console.error("Erro ao cadastrar pet:", error)
       })
   }
+}
 
-  }}
->
-  <input
-    type="text"
-    value={nome}
-    onChange={(event) => setNome(event.target.value)}
-  />
+  return (
+  <div>
+    <h1>Pet Adoption Platform</h1>
 
-  <input
-  type="text"
-  value={especie}
-  onChange={(event) => setEspecie(event.target.value)}
-/>
-
-  <button type="submit">
-    Cadastrar
-  </button>
-</form>
-<p>Nome digitado: {nome}</p>
+    <PetForm 
+    nome={nome} 
+    especie={especie}
+    setNome={setNome}
+    setEspecie={setEspecie}  
+    onSubmit={salvarPet}
+    petEditando={petEditando}
+    />
 
       <p>Quantidade de pets: {pets.length}</p>
 
