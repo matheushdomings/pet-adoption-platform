@@ -1,4 +1,10 @@
 import { useState, useEffect } from 'react'
+import {
+  getPets,
+  createPet,
+  deletePet,
+  updatePet
+} from "./services/petService"
 import './App.css'
 import PetForm from "./components/PetForm.jsx"
 import PetCard from "./components/PetCard"
@@ -10,7 +16,7 @@ function App() {
   const [petEditando, setPetEditando] = useState(null)
 
   const buscarPets = () => {
-  fetch("http://localhost:3000/pets")
+  getPets()
     .then((response) => response.json())
     .then((data) => {
       setPets(data)
@@ -24,9 +30,7 @@ function App() {
 }, [])
 
 const excluirPet = (id) => {
-  fetch(`http://localhost:3000/pets/${id}`, {
-    method: "DELETE"
-  })
+ deletePet(id)
     .then(() => {
       buscarPets()
     })
@@ -44,13 +48,7 @@ const salvarPet = (event) => {
   }
 
   if (petEditando) {
-    fetch(`http://localhost:3000/pets/${petEditando._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(novoPet)
-    })
+    updatePet(petEditando._id, novoPet)
       .then(() => {
         buscarPets()
         setNome("")
@@ -61,13 +59,7 @@ const salvarPet = (event) => {
         console.error("Erro ao editar pet:", error)
       })
   } else {
-    fetch("http://localhost:3000/pets", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(novoPet)
-    })
+    createPet(novoPet)
       .then(() => {
         buscarPets()
         setNome("")
