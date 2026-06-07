@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import PetForm from "./components/PetForm.jsx"
+import PetCard from "./components/PetCard"
 
 function App() {
   const [pets, setPets] = useState([])
@@ -95,24 +96,18 @@ const salvarPet = (event) => {
 
       {
   pets.map((pet) => (
-    <div key={pet._id}>
-      <h2>{pet.nome}</h2>
-      <p>Espécie: {pet.especie}</p>
-
-      <button
-  onClick={() => {
+  <PetCard
+    key={pet._id}
+    nome={pet.nome}
+    especie={pet.especie}
+    onEditar={() => {
     setPetEditando(pet)
     setNome(pet.nome)
     setEspecie(pet.especie)
   }}
->
-  Editar
-</button>
-
-<button onClick={() => excluirPet(pet._id)}>  Excluir
-</button>
-    </div>
-  ))
+    onExcluir={() => excluirPet(pet._id)}
+  />
+))
 }
   </div>
   )
