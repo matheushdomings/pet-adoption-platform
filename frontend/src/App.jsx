@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+
 import {
   getPets,
   createPet,
@@ -16,92 +17,93 @@ function App() {
   const [petEditando, setPetEditando] = useState(null)
 
   const buscarPets = () => {
-  getPets()
-    .then((response) => response.json())
-    .then((data) => {
-      setPets(data)
-    })
-    .catch((error) => {
-      console.error("Erro ao buscar pets:", error)
-    })
-}
+    getPets()
+      .then((response) => response.json())
+      .then((data) => {
+        setPets(data)
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar pets:", error)
+      })
+  }
+
   useEffect(() => {
-  buscarPets()
-}, [])
+    buscarPets()
+  }, [])
 
-const excluirPet = (id) => {
- deletePet(id)
-    .then(() => {
-      buscarPets()
-    })
-    .catch((error) => {
-      console.error("Erro ao excluir pet:", error)
-    })
-} 
-
-const salvarPet = (event) => {
-  event.preventDefault()
-
-  const novoPet = {
-    nome,
-    especie
-  }
-
-  if (petEditando) {
-    updatePet(petEditando._id, novoPet)
+  const excluirPet = (id) => {
+    deletePet(id)
       .then(() => {
         buscarPets()
-        setNome("")
-        setEspecie("")
-        setPetEditando(null)
       })
       .catch((error) => {
-        console.error("Erro ao editar pet:", error)
+        console.error("Erro ao excluir pet:", error)
       })
-  } else {
-    createPet(novoPet)
-      .then(() => {
-        buscarPets()
-        setNome("")
-        setEspecie("")
-      })
-      .catch((error) => {
-        console.error("Erro ao cadastrar pet:", error)
-      })
+  } 
+
+  const salvarPet = (event) => {
+    event.preventDefault()
+
+    const novoPet = {
+      nome,
+      especie
+    }
+
+    if (petEditando) {
+      updatePet(petEditando._id, novoPet)
+        .then(() => {
+          buscarPets()
+          setNome("")
+          setEspecie("")
+          setPetEditando(null)
+        })
+        .catch((error) => {
+          console.error("Erro ao editar pet:", error)
+        })
+    } else {
+      createPet(novoPet)
+        .then(() => {
+          buscarPets()
+          setNome("")
+          setEspecie("")
+        })
+        .catch((error) => {
+          console.error("Erro ao cadastrar pet:", error)
+        })
+    }
   }
-}
 
   return (
-  <div>
-    <h1>Pet Adoption Platform</h1>
+    <div className="container">
+      <h1>Pet Adoption Platform</h1>
 
-    <PetForm 
-    nome={nome} 
-    especie={especie}
-    setNome={setNome}
-    setEspecie={setEspecie}  
-    onSubmit={salvarPet}
-    petEditando={petEditando}
-    />
+      <PetForm 
+        nome={nome} 
+        especie={especie}
+        setNome={setNome}
+        setEspecie={setEspecie}  
+        onSubmit={salvarPet}
+        petEditando={petEditando}
+      />
 
       <p>Quantidade de pets: {pets.length}</p>
 
       {
-  pets.map((pet) => (
-  <PetCard
-    key={pet._id}
-    nome={pet.nome}
-    especie={pet.especie}
-    onEditar={() => {
-    setPetEditando(pet)
-    setNome(pet.nome)
-    setEspecie(pet.especie)
-  }}
-    onExcluir={() => excluirPet(pet._id)}
-  />
-))
-}
-  </div>
+        pets.map((pet) => (
+          <PetCard
+            key={pet._id}
+            nome={pet.nome}
+            especie={pet.especie}
+            onEditar={() => {
+              setPetEditando(pet)
+              setNome(pet.nome)
+              setEspecie(pet.especie)
+            }}
+            onExcluir={() => excluirPet(pet._id)}
+          />
+        ))
+      }
+    </div>
   )
 }
 
