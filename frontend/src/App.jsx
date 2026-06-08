@@ -19,6 +19,7 @@ function App() {
   const [imagem, setImagem] = useState("")
   const [status, setStatus] = useState("Disponível")
   const [petEditando, setPetEditando] = useState(null)
+  const [busca, setBusca] = useState("")
 
   const buscarPets = () => {
     getPets()
@@ -89,6 +90,10 @@ function App() {
     }
   }
 
+  const petsFiltrados = pets.filter((pet) =>
+  pet.nome.toLowerCase().includes(busca.toLowerCase())
+  )
+
   return (
     <div className="container">
       <h1>Pet Adoption Platform</h1>
@@ -110,10 +115,17 @@ function App() {
         petEditando={petEditando}
       />
 
+      <input
+        type="text"
+        placeholder="Buscar pet pelo nome..."
+        value={busca}
+        onChange={(event) => setBusca(event.target.value)}
+      />
+
       <p>Quantidade de pets: {pets.length}</p>
 
       {
-        pets.map((pet) => (
+        petsFiltrados.map((pet) => (
           <PetCard
             key={pet._id}
             nome={pet.nome}
