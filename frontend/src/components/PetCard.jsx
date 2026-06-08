@@ -1,6 +1,13 @@
 function PetCard(props) {
   return (
     <div className="pet-card">
+      {props.imagem && (
+        <img
+          src={props.imagem}
+          alt={props.nome}
+          className="pet-image"
+        />
+      )}
       <h2>{props.nome}</h2>
       <p>Espécie: {props.especie}</p>
       <p>Idade: {props.idade}</p>

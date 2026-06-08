@@ -18,6 +18,9 @@ const petSchema = new mongoose.Schema({
     },
     raca: {
         type: String
+    },
+    imagem: {
+    type: String
     }
 }); 
 

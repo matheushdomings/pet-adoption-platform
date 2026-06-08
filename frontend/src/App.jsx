@@ -16,6 +16,7 @@ function App() {
   const [especie, setEspecie] = useState("")
   const [idade, setIdade] = useState("")
   const [raca, setRaca] = useState("")
+  const [imagem, setImagem] = useState("")
   const [status, setStatus] = useState("Disponível")
   const [petEditando, setPetEditando] = useState(null)
 
@@ -52,6 +53,7 @@ function App() {
       especie,
       idade,
       raca,
+      imagem,
       status
     }
 
@@ -63,6 +65,7 @@ function App() {
           setEspecie("")
           setIdade("")
           setRaca("")
+          setImagem("")
           setStatus("Disponível")
           setPetEditando(null)
         })
@@ -77,6 +80,7 @@ function App() {
           setEspecie("")
           setIdade("")
           setRaca("")
+          setImagem("")
           setStatus("Disponível") 
         })
         .catch((error) => {
@@ -94,12 +98,14 @@ function App() {
         especie={especie}
         idade={idade}
         raca={raca}
-        setIdade={setIdade}
-        setRaca={setRaca}
-        status={status}
-        setStatus={setStatus}
+        imagem={imagem}
+        status={status}            
         setNome={setNome}
         setEspecie={setEspecie}  
+        setIdade={setIdade}
+        setRaca={setRaca}
+        setImagem={setImagem}
+        setStatus={setStatus}        
         onSubmit={salvarPet}
         petEditando={petEditando}
       />
@@ -114,6 +120,7 @@ function App() {
             especie={pet.especie}
             idade={pet.idade}
             raca={pet.raca}
+            imagem={pet.imagem}
             status={pet.status}
             onEditar={() => {
               setPetEditando(pet)
@@ -121,6 +128,7 @@ function App() {
               setEspecie(pet.especie)
               setIdade(pet.idade)
               setRaca(pet.raca)
+              setImagem(pet.imagem)
               setStatus(pet.status)
             }}
             onExcluir={() => excluirPet(pet._id)}

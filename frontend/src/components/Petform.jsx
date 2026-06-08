@@ -44,6 +44,16 @@ function PetForm(props) {
         </div>
 
         <div>
+          <label>Imagem (URL)</label>
+
+          <input
+            type="text"
+            value={props.imagem}
+            onChange={(event) => props.setImagem(event.target.value)}
+          />
+        </div>
+        
+        <div>
           <label>Status</label>
 
           <select
