@@ -24,6 +24,26 @@ function PetForm(props) {
         </div>
 
         <div>
+          <label>Idade</label>
+
+          <input
+            type="number"
+            value={props.idade}
+            onChange={(event) => props.setIdade(event.target.value)}
+          />
+        </div>
+
+        <div>
+          <label>Raça</label>
+
+          <input
+            type="text"
+            value={props.raca}
+            onChange={(event) => props.setRaca(event.target.value)}
+          />
+        </div>
+
+        <div>
           <label>Status</label>
 
           <select

@@ -14,6 +14,8 @@ function App() {
   const [pets, setPets] = useState([])
   const [nome, setNome] = useState("")
   const [especie, setEspecie] = useState("")
+  const [idade, setIdade] = useState("")
+  const [raca, setRaca] = useState("")
   const [status, setStatus] = useState("Disponível")
   const [petEditando, setPetEditando] = useState(null)
 
@@ -48,6 +50,8 @@ function App() {
     const novoPet = {
       nome,
       especie,
+      idade,
+      raca,
       status
     }
 
@@ -57,6 +61,8 @@ function App() {
           buscarPets()
           setNome("")
           setEspecie("")
+          setIdade("")
+          setRaca("")
           setStatus("Disponível")
           setPetEditando(null)
         })
@@ -69,7 +75,9 @@ function App() {
           buscarPets()
           setNome("")
           setEspecie("")
-          setStatus("Disponível")
+          setIdade("")
+          setRaca("")
+          setStatus("Disponível") 
         })
         .catch((error) => {
           console.error("Erro ao cadastrar pet:", error)
@@ -84,6 +92,10 @@ function App() {
       <PetForm 
         nome={nome} 
         especie={especie}
+        idade={idade}
+        raca={raca}
+        setIdade={setIdade}
+        setRaca={setRaca}
         status={status}
         setStatus={setStatus}
         setNome={setNome}
@@ -100,11 +112,16 @@ function App() {
             key={pet._id}
             nome={pet.nome}
             especie={pet.especie}
+            idade={pet.idade}
+            raca={pet.raca}
             status={pet.status}
             onEditar={() => {
               setPetEditando(pet)
               setNome(pet.nome)
               setEspecie(pet.especie)
+              setIdade(pet.idade)
+              setRaca(pet.raca)
+              setStatus(pet.status)
             }}
             onExcluir={() => excluirPet(pet._id)}
           />

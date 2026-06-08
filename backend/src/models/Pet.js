@@ -12,6 +12,12 @@ const petSchema = new mongoose.Schema({
     status: {
         type: String,
         default: "Disponível"
+    },
+    idade: {
+        type: Number
+    },
+    raca: {
+        type: String
     }
 }); 
 

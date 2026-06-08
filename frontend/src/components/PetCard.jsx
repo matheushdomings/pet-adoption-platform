@@ -3,6 +3,8 @@ function PetCard(props) {
     <div className="pet-card">
       <h2>{props.nome}</h2>
       <p>Espécie: {props.especie}</p>
+      <p>Idade: {props.idade}</p>
+      <p>Raça: {props.raca}</p>
       <p>Status: {props.status}</p>
 
       <button onClick={props.onEditar}>
