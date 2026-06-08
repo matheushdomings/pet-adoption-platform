@@ -14,6 +14,7 @@ function App() {
   const [pets, setPets] = useState([])
   const [nome, setNome] = useState("")
   const [especie, setEspecie] = useState("")
+  const [status, setStatus] = useState("Disponível")
   const [petEditando, setPetEditando] = useState(null)
 
   const buscarPets = () => {
@@ -46,7 +47,8 @@ function App() {
 
     const novoPet = {
       nome,
-      especie
+      especie,
+      status
     }
 
     if (petEditando) {
@@ -55,6 +57,7 @@ function App() {
           buscarPets()
           setNome("")
           setEspecie("")
+          setStatus("Disponível")
           setPetEditando(null)
         })
         .catch((error) => {
@@ -66,6 +69,7 @@ function App() {
           buscarPets()
           setNome("")
           setEspecie("")
+          setStatus("Disponível")
         })
         .catch((error) => {
           console.error("Erro ao cadastrar pet:", error)
@@ -80,6 +84,8 @@ function App() {
       <PetForm 
         nome={nome} 
         especie={especie}
+        status={status}
+        setStatus={setStatus}
         setNome={setNome}
         setEspecie={setEspecie}  
         onSubmit={salvarPet}
@@ -94,6 +100,7 @@ function App() {
             key={pet._id}
             nome={pet.nome}
             especie={pet.especie}
+            status={pet.status}
             onEditar={() => {
               setPetEditando(pet)
               setNome(pet.nome)

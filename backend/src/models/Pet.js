@@ -8,7 +8,11 @@ const petSchema = new mongoose.Schema({
     especie: {
         type: String,
         required: true
-    }   
+    },
+    status: {
+        type: String,
+        default: "Disponível"
+    }
 }); 
 
 const Pet = mongoose.model("Pet", petSchema);

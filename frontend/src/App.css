@@ -54,3 +54,16 @@ button {
 .pet-card button {
   margin-right: 8px;
 }
+
+.pet-card h2 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.pet-card p {
+  margin-bottom: 12px;
+}
+
+.pet-card {
+  border: 1px solid #ddd;
+}

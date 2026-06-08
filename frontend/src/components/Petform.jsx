@@ -24,6 +24,18 @@ function PetForm(props) {
         </div>
 
         <div>
+          <label>Status</label>
+
+          <select
+            value={props.status}
+            onChange={(event) => props.setStatus(event.target.value)}
+          >
+            <option value="Disponível">Disponível</option>
+            <option value="Adotado">Adotado</option>
+          </select>
+        </div>
+
+        <div>
           <button type="submit">
             {props.petEditando ? "Salvar alterações" : "Cadastrar"}
           </button>
