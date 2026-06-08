@@ -18,8 +18,9 @@ function App() {
   const [raca, setRaca] = useState("")
   const [imagem, setImagem] = useState("")
   const [status, setStatus] = useState("Disponível")
-  const [petEditando, setPetEditando] = useState(null)
   const [busca, setBusca] = useState("")
+  const [filtroStatus, setFiltroStatus] = useState("Todos")
+  const [petEditando, setPetEditando] = useState(null)
 
   const buscarPets = () => {
     getPets()
@@ -90,9 +91,17 @@ function App() {
     }
   }
 
-  const petsFiltrados = pets.filter((pet) =>
-  pet.nome.toLowerCase().includes(busca.toLowerCase())
-  )
+  const petsFiltrados = pets.filter((pet) => {
+    const nomeCorresponde = pet.nome
+      .toLowerCase()
+      .includes(busca.toLowerCase())
+
+    const statusCorresponde =
+      filtroStatus === "Todos" ||
+      pet.status === filtroStatus
+
+    return nomeCorresponde && statusCorresponde
+  })
 
   return (
     <div className="container">
@@ -121,6 +130,15 @@ function App() {
         value={busca}
         onChange={(event) => setBusca(event.target.value)}
       />
+
+      <select
+        value={filtroStatus}
+        onChange={(event) => setFiltroStatus(event.target.value)}
+      >
+        <option value="Todos">Todos</option>
+        <option value="Disponível">Disponível</option>
+        <option value="Adotado">Adotado</option>
+      </select>
 
       <p>Quantidade de pets: {pets.length}</p>
 
