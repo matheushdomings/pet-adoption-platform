@@ -7,10 +7,7 @@ export const getPets = () => {
 export const createPet = (pet) => {
   return fetch(API_URL, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(pet)
+    body: pet
   })
 }
 
@@ -23,9 +20,6 @@ export const deletePet = (id) => {
 export const updatePet = (id, pet) => {
   return fetch(`${API_URL}/${id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(pet)
+    body: pet
   })
 }

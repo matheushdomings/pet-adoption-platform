@@ -3,7 +3,7 @@ function PetCard(props) {
     <div className="pet-card">
       {props.imagem && (
         <img
-          src={props.imagem}
+          src={`http://localhost:3000${props.imagem}`}
           alt={props.nome}
           className="pet-image"
         />

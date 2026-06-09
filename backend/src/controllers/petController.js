@@ -29,21 +29,37 @@ const getPetById = async (req, res, next) => {
 };
 
 const createPet = async (req, res, next) => {
-    try {
-        const pet = await Pet.create(req.body);
-
-        res.status(201).json(pet);
-
-    } catch (error) {
-        next(error);
+  try {
+    const petData = {
+      ...req.body
     }
-};
+
+    if (req.file) {
+      petData.imagem = `/uploads/${req.file.filename}`
+    }
+
+    const pet = await Pet.create(petData)
+
+    res.status(201).json(pet)
+
+  } catch (error) {
+    next(error)
+  }
+}
 
 const updatePet = async (req, res, next) => {
     try {
+        const petData = {
+        ...req.body
+        }
+
+        if (req.file) {
+        petData.imagem = `/uploads/${req.file.filename}`
+        }
+
         const pet = await Pet.findByIdAndUpdate(
             req.params.id,
-            req.body,
+            petData,
             { new: true }
         );
 

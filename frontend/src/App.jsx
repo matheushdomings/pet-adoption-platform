@@ -51,13 +51,16 @@ function App() {
   const salvarPet = (event) => {
     event.preventDefault()
 
-    const novoPet = {
-      nome,
-      especie,
-      idade,
-      raca,
-      imagem,
-      status
+    const novoPet = new FormData()
+
+    novoPet.append("nome", nome)
+    novoPet.append("especie", especie)
+    novoPet.append("idade", idade)
+    novoPet.append("raca", raca)
+    novoPet.append("status", status)
+
+    if (imagem) {
+      novoPet.append("imagem", imagem)
     }
 
     if (petEditando) {

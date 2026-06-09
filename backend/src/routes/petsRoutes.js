@@ -7,6 +7,7 @@ const {
 } = require("../controllers/petController");
 
 const Pet = require("../models/Pet");
+const upload = require("../config/multer")
 
 const express = require("express");
 
@@ -16,9 +17,9 @@ router.get("/pets", getPets);
 
 router.get("/pets/:id", getPetById);
 
-router.post("/pets", createPet);
+router.post("/pets", upload.single("imagem"), createPet)
 
-router.put("/pets/:id", updatePet);
+router.put("/pets/:id", upload.single("imagem"), updatePet)
 
 router.delete("/pets/:id", deletePet);
 
