@@ -75,3 +75,24 @@ button {
   border-radius: 8px;
   margin-bottom: 12px;
 }
+
+.filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.filters input {
+  flex: 1;
+  padding: 8px;
+}
+
+.filters select {
+  padding: 8px;
+}
+
+.filters input,
+.filters select {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}

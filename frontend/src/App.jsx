@@ -20,6 +20,7 @@ function App() {
   const [status, setStatus] = useState("Disponível")
   const [busca, setBusca] = useState("")
   const [filtroStatus, setFiltroStatus] = useState("Todos")
+  const [filtroEspecie, setFiltroEspecie] = useState("Todas")
   const [petEditando, setPetEditando] = useState(null)
 
   const buscarPets = () => {
@@ -100,7 +101,15 @@ function App() {
       filtroStatus === "Todos" ||
       pet.status === filtroStatus
 
-    return nomeCorresponde && statusCorresponde
+    const especieCorresponde =
+      filtroEspecie === "Todas" ||
+      pet.especie === filtroEspecie
+
+    return (
+      nomeCorresponde &&
+      statusCorresponde &&
+      especieCorresponde
+)
   })
 
   return (
@@ -124,6 +133,7 @@ function App() {
         petEditando={petEditando}
       />
 
+    <div className="filters">
       <input
         type="text"
         placeholder="Buscar pet pelo nome..."
@@ -140,6 +150,16 @@ function App() {
         <option value="Adotado">Adotado</option>
       </select>
 
+      <select
+        value={filtroEspecie}
+        onChange={(event) => setFiltroEspecie(event.target.value)}
+      >
+        <option value="Todas">Todas</option>
+        <option value="Cachorro">Cachorro</option>
+        <option value="Gato">Gato</option>
+      </select>
+    </div>
+    
       <p>Quantidade de pets: {pets.length}</p>
 
       {
