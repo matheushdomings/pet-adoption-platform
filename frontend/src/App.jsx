@@ -160,9 +160,12 @@ function App() {
       </select>
     </div>
     
-      <p>Quantidade de pets: {pets.length}</p>
+      <p>
+        Mostrando {petsFiltrados.length}{" "}
+        {petsFiltrados.length === 1 ? "pet" : "pets"}
+      </p>  
 
-      {
+      {petsFiltrados.length > 0 ? (
         petsFiltrados.map((pet) => (
           <PetCard
             key={pet._id}
@@ -184,7 +187,9 @@ function App() {
             onExcluir={() => excluirPet(pet._id)}
           />
         ))
-      }
+      ) : (
+        <p className="no-results">Nenhum pet encontrado.</p>
+      )}
     </div>
   )
 }

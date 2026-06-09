@@ -96,3 +96,12 @@ button {
   border: 1px solid #ddd;
   border-radius: 8px;
 }
+
+.no-results {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
