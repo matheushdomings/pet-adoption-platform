@@ -161,6 +161,16 @@ function App() {
         <option value="Cachorro">Cachorro</option>
         <option value="Gato">Gato</option>
       </select>
+
+      <button
+        onClick={() => {
+          setBusca("")
+          setFiltroStatus("Todos")
+          setFiltroEspecie("Todas")
+        }}
+      >
+        Limpar filtros
+      </button>
     </div>
     
       <p>
