@@ -123,6 +123,16 @@ function App() {
 )
   })
 
+  const cancelarEdicao = () => {
+    setNome("")
+    setEspecie("")
+    setIdade("")
+    setRaca("")
+    setImagem("")
+    setStatus("Disponível")
+    setPetEditando(null)
+  }
+
   return (
     <div className="container">
       <h1>Pet Adoption Platform</h1>
@@ -142,6 +152,7 @@ function App() {
         setStatus={setStatus}        
         onSubmit={salvarPet}
         petEditando={petEditando}
+        onCancelar={cancelarEdicao}
       />
 
     <div className="filters">

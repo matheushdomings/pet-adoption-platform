@@ -69,6 +69,15 @@ function PetForm(props) {
           <button type="submit">
             {props.petEditando ? "Salvar alterações" : "Cadastrar"}
           </button>
+
+            {props.petEditando && (
+          <button
+            type="button"
+            onClick={props.onCancelar}
+          >
+            Cancelar
+          </button>
+            )}
         </div>
       </form>
     </>
