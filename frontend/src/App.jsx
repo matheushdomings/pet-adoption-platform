@@ -89,6 +89,12 @@ function App() {
       updatePet(petEditando._id, novoPet)
         .then(() => {
           buscarPets()
+          setMensagem("Pet atualizado com sucesso!")
+
+          setTimeout(() => {
+            setMensagem("")
+          }, 3000)
+
           setNome("")
           setEspecie("")
           setIdade("")
@@ -100,6 +106,12 @@ function App() {
         })
         .catch((error) => {
           console.error("Erro ao editar pet:", error)
+          setMensagem("Erro ao atualizar pet.")
+
+          setTimeout(() => {
+            setMensagem("")
+          }, 3000)
+
           setSalvando(false)
         })
     } else {
@@ -107,9 +119,11 @@ function App() {
         .then(() => {
           buscarPets()
           setMensagem("Pet cadastrado com sucesso!")
+
           setTimeout(() => {
             setMensagem("")
           }, 3000)
+
           setNome("")
           setEspecie("")
           setIdade("")
@@ -121,6 +135,12 @@ function App() {
         })
         .catch((error) => {
           console.error("Erro ao cadastrar pet:", error)
+          setMensagem("Erro ao cadastrar pet.")
+
+          setTimeout(() => {
+            setMensagem("")
+          }, 3000)
+
           setSalvando(false)
         })
     }
