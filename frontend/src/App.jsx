@@ -24,15 +24,19 @@ function App() {
   const [salvando, setSalvando] = useState(false)
   const [petEditando, setPetEditando] = useState(null)
   const [mensagem, setMensagem] = useState("")
+  const [carregando, setCarregando] = useState(true)
 
   const buscarPets = () => {
+    setCarregando(true)
     getPets()
       .then((response) => response.json())
       .then((data) => {
         setPets(data)
+        setCarregando(false)
       })
       .catch((error) => {
         console.error("Erro ao buscar pets:", error)
+        setCarregando(false)
       })
   }
 
@@ -254,7 +258,9 @@ function App() {
         {petsFiltrados.length === 1 ? "pet" : "pets"}
       </p>  
 
-      {petsFiltrados.length > 0 ? (
+      {carregando ? (
+        <p className="no-results">Carregando pets...</p>
+      ) : petsFiltrados.length > 0 ? (
         petsFiltrados.map((pet) => (
           <PetCard
             key={pet._id}
