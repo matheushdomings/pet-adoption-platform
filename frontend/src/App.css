@@ -106,3 +106,25 @@ button {
   border-radius: 8px;
 }
 
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.status-badge.available {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-badge.adopted {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.pets-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}

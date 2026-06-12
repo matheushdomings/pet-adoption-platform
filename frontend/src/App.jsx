@@ -258,6 +258,7 @@ function App() {
         {petsFiltrados.length === 1 ? "pet" : "pets"}
       </p>  
 
+      <div className="pets-grid">
       {carregando ? (
         <p className="no-results">Carregando pets...</p>
       ) : petsFiltrados.length > 0 ? (
@@ -285,6 +286,7 @@ function App() {
       ) : (
         <p className="no-results">Nenhum pet encontrado.</p>
       )}
+      </div>
     </div>
   )
 }

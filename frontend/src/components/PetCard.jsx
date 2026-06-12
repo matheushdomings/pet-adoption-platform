@@ -12,7 +12,12 @@ function PetCard(props) {
       <p>Espécie: {props.especie}</p>
       <p>Idade: {props.idade}</p>
       <p>Raça: {props.raca}</p>
-      <p>Status: {props.status}</p>
+      <p>
+        Status:{" "}
+        <span className={`status-badge ${props.status === "Adotado" ? "adopted" : "available"}`}>
+          {props.status}
+        </span>
+      </p>
 
       <button onClick={props.onEditar}>
         Editar
