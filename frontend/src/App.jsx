@@ -23,6 +23,7 @@ function App() {
   const [filtroEspecie, setFiltroEspecie] = useState("Todas")
   const [salvando, setSalvando] = useState(false)
   const [petEditando, setPetEditando] = useState(null)
+  const [mensagem, setMensagem] = useState("")
 
   const buscarPets = () => {
     getPets()
@@ -105,6 +106,10 @@ function App() {
       createPet(novoPet)
         .then(() => {
           buscarPets()
+          setMensagem("Pet cadastrado com sucesso!")
+          setTimeout(() => {
+            setMensagem("")
+          }, 3000)
           setNome("")
           setEspecie("")
           setIdade("")
@@ -112,6 +117,7 @@ function App() {
           setImagem("")
           setStatus("Disponível") 
           setSalvando(false)
+          
         })
         .catch((error) => {
           console.error("Erro ao cadastrar pet:", error)
@@ -153,6 +159,8 @@ function App() {
   return (
     <div className="container">
       <h1>Pet Adoption Platform</h1>
+
+      {mensagem && <p className="message">{mensagem}</p>}
 
       <PetForm 
         nome={nome} 
