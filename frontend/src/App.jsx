@@ -52,9 +52,20 @@ function App() {
     deletePet(id)
       .then(() => {
         buscarPets()
+        setMensagem("Pet excluído com sucesso!")
+
+        setTimeout(() => {
+          setMensagem("")
+        }, 3000)
+
       })
       .catch((error) => {
         console.error("Erro ao excluir pet:", error)
+        setMensagem("Erro ao excluir pet.")
+
+        setTimeout(() => {
+          setMensagem("")
+        }, 3000)
       })
   }
 
