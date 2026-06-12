@@ -21,6 +21,7 @@ function App() {
   const [busca, setBusca] = useState("")
   const [filtroStatus, setFiltroStatus] = useState("Todos")
   const [filtroEspecie, setFiltroEspecie] = useState("Todas")
+  const [salvando, setSalvando] = useState(false)
   const [petEditando, setPetEditando] = useState(null)
 
   const buscarPets = () => {
@@ -68,6 +69,8 @@ function App() {
       alert("A espécie do pet é obrigatória.")
       return
     }
+
+    setSalvando(true)
     
     const novoPet = new FormData()
 
@@ -92,9 +95,11 @@ function App() {
           setImagem("")
           setStatus("Disponível")
           setPetEditando(null)
+          setSalvando(false)
         })
         .catch((error) => {
           console.error("Erro ao editar pet:", error)
+          setSalvando(false)
         })
     } else {
       createPet(novoPet)
@@ -106,9 +111,11 @@ function App() {
           setRaca("")
           setImagem("")
           setStatus("Disponível") 
+          setSalvando(false)
         })
         .catch((error) => {
           console.error("Erro ao cadastrar pet:", error)
+          setSalvando(false)
         })
     }
   }
@@ -163,6 +170,7 @@ function App() {
         onSubmit={salvarPet}
         petEditando={petEditando}
         onCancelar={cancelarEdicao}
+        salvando={salvando}
       />
 
     <div className="filters">

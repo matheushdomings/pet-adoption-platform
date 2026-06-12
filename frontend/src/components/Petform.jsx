@@ -67,10 +67,17 @@ function PetForm(props) {
             <option value="Adotado">Adotado</option>
           </select>
         </div>
-
+      
         <div>
-          <button type="submit">
-            {props.petEditando ? "Salvar alterações" : "Cadastrar"}
+          <button
+            type="submit"
+            disabled={props.salvando}
+          >
+            {props.salvando
+              ? "Salvando..."
+              : props.petEditando
+                ? "Salvar alterações"
+                : "Cadastrar"}
           </button>
 
             {props.petEditando && (
