@@ -39,6 +39,14 @@ function App() {
   }, [])
 
   const excluirPet = (id) => {
+    const confirmarExclusao = window.confirm(
+      "Tem certeza que deseja excluir este pet?"
+    )
+
+    if (!confirmarExclusao) {
+      return
+    }
+
     deletePet(id)
       .then(() => {
         buscarPets()
@@ -46,7 +54,7 @@ function App() {
       .catch((error) => {
         console.error("Erro ao excluir pet:", error)
       })
-  } 
+  }
 
   const salvarPet = (event) => {
     event.preventDefault()
