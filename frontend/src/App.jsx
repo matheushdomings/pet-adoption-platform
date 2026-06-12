@@ -59,6 +59,16 @@ function App() {
   const salvarPet = (event) => {
     event.preventDefault()
 
+    if (!nome.trim()) {
+      alert("O nome do pet é obrigatório.")
+      return
+    }
+
+    if (!especie.trim()) {
+      alert("A espécie do pet é obrigatória.")
+      return
+    }
+    
     const novoPet = new FormData()
 
     novoPet.append("nome", nome)

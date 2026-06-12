@@ -11,6 +11,7 @@ function PetForm(props) {
             type="text"
             value={props.nome}
             onChange={(event) => props.setNome(event.target.value)}
+            required
           />
         </div>
 
@@ -20,6 +21,7 @@ function PetForm(props) {
             type="text"
             value={props.especie}
             onChange={(event) => props.setEspecie(event.target.value)}
+            required
           />
         </div>
 
@@ -28,6 +30,7 @@ function PetForm(props) {
 
           <input
             type="number"
+            min="0"
             value={props.idade}
             onChange={(event) => props.setIdade(event.target.value)}
           />
