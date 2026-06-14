@@ -1,5 +1,7 @@
 # Pet Adoption Platform
 
+![Pet Adoption Platform](assets/home.png)
+
 Full stack web application for pet adoption management, developed for study and portfolio purposes.
 
 ## Features
