@@ -22,6 +22,14 @@ app.use(
 
 app.use(petsRoutes);    
 
+app.get("/debug", (req, res) => {
+  res.json({
+    message: "Backend atualizado",
+    frontendUrl: process.env.FRONTEND_URL,
+    routes: ["/", "/pets", "/debug"]
+  });
+});
+
 app.get("/", (req, res) => {
     res.send("Servidor atualizado pelo nodemon");
 });
