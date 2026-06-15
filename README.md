@@ -39,6 +39,13 @@ Full stack web application for pet adoption management, developed for study and 
 * Dotenv
 * Nodemon
 
+## Deploy
+
+- Frontend: https://pet-adoption-platform-nine.vercel.app
+- Backend API: https://pet-adoption-platform-tz77.onrender.com
+
+> Note: The backend is hosted on Render's free tier. If the service is inactive, the first request may take a few seconds to respond.
+
 ## Environment Variables
 
 Create a `.env` file based on `.env.example`.
