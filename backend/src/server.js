@@ -14,7 +14,11 @@ const app = express();
 
 app.use(express.json());
 app.use("/uploads", express.static("uploads"))
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || "http://localhost:5173"
+  })
+);
 
 app.use(petsRoutes);    
 
@@ -24,6 +28,8 @@ app.get("/", (req, res) => {
 
 app.use(errorMiddleware);
 
-app.listen(3000, () => {
-    console.log("Servidor rodando na porta 3000");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
