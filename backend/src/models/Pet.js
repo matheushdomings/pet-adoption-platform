@@ -21,6 +21,11 @@ const petSchema = new mongoose.Schema({
     },
     imagem: {
     type: String
+    },
+    usuario: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true
     }
 }); 
 

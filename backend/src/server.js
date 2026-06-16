@@ -5,6 +5,7 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 const petsRoutes = require("./routes/petsRoutes");
 const errorMiddleware = require("./middlewares/errorMiddleware");
+const authRoutes = require("./routes/authRoutes");
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use(
 );
 
 app.use(petsRoutes);    
+app.use(authRoutes);
 
 app.get("/", (req, res) => {
     res.send("Servidor atualizado pelo nodemon");

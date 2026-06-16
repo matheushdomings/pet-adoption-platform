@@ -8,6 +8,7 @@ const {
 
 const Pet = require("../models/Pet");
 const upload = require("../config/multer")
+const authMiddleware = require("../middlewares/authMiddleware");
 
 const express = require("express");
 
@@ -17,11 +18,16 @@ router.get("/pets", getPets);
 
 router.get("/pets/:id", getPetById);
 
-router.post("/pets", upload.single("imagem"), createPet)
+router.post(
+  "/pets",
+  authMiddleware,
+  upload.single("imagem"),
+  createPet
+);
 
-router.put("/pets/:id", upload.single("imagem"), updatePet)
+router.put("/pets/:id", authMiddleware, upload.single("imagem"), updatePet);
 
-router.delete("/pets/:id", deletePet);
+router.delete("/pets/:id", authMiddleware, deletePet);
 
 module.exports = router;  
 

@@ -41,10 +41,10 @@ Full stack web application for pet adoption management, developed for study and 
 
 ## Deploy
 
-- Frontend: https://pet-adoption-platform-nine.vercel.app
-- Backend API: https://pet-adoption-platform-tz77.onrender.com
+* Frontend: https://pet-adoption-platform-nine.vercel.app
+* Backend API: https://pet-adoption-platform-tz77.onrender.com
 
-> Note: The backend is hosted on Render's free tier. If the service is inactive, the first request may take a few seconds to respond.
+> **Note:** The backend is hosted on Render's free tier. If the service is inactive, the first request may take a few seconds to respond.
 
 ## Environment Variables
 
@@ -52,16 +52,20 @@ Create a `.env` file based on `.env.example`.
 
 Example:
 
-```
-MONGO_URI=<mongodb_connection_string>
+```env
+MONGODB_URI=<mongodb_connection_string>
 PORT=3000
 ```
 
 ## Installation
 
-Install the dependencies for both the backend and frontend:
+Install the project dependencies:
 
-```
+```bash
+cd backend
+npm install
+
+cd ../frontend
 npm install
 ```
 
@@ -69,13 +73,15 @@ npm install
 
 Start the backend:
 
-```
+```bash
+cd backend
 npm run dev
 ```
 
-Then start the frontend (inside the `frontend` folder):
+Then start the frontend:
 
-```
+```bash
+cd frontend
 npm run dev
 ```
 
@@ -88,4 +94,4 @@ npm run dev
 * Cloud image storage
 * Application deployment
 
-Project under development.
+This project is under active development.
