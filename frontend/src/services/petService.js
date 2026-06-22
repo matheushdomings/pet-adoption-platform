@@ -7,19 +7,28 @@ export const getPets = () => {
 export const createPet = (pet) => {
   return fetch(API_URL, {
     method: "POST",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    },
     body: pet
   })
 }
 
 export const deletePet = (id) => {
   return fetch(`${API_URL}/${id}`, {
-    method: "DELETE"
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    }
   })
 }
 
 export const updatePet = (id, pet) => {
   return fetch(`${API_URL}/${id}`, {
     method: "PUT",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    },
     body: pet
   })
 }

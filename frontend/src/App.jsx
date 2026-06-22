@@ -9,6 +9,7 @@ import {
 import './App.css'
 import PetForm from "./components/PetForm.jsx"
 import PetCard from "./components/PetCard"
+import LoginForm from "./components/LoginForm";
 
 function App() {
   const [pets, setPets] = useState([])
@@ -28,14 +29,22 @@ function App() {
 
   const buscarPets = () => {
     setCarregando(true)
+
     getPets()
       .then((response) => response.json())
       .then((data) => {
-        setPets(data)
+        if (Array.isArray(data)) {
+          setPets(data)
+        } else {
+          console.error("Resposta inesperada ao buscar pets:", data)
+          setPets([])
+        }
+
         setCarregando(false)
       })
       .catch((error) => {
         console.error("Erro ao buscar pets:", error)
+        setPets([])
         setCarregando(false)
       })
   }
@@ -196,6 +205,8 @@ function App() {
       <h1>Pet Adoption Platform</h1>
 
       {mensagem && <p className="message">{mensagem}</p>}
+
+      <LoginForm />
 
       <PetForm 
         nome={nome} 
