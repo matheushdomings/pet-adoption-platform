@@ -19,14 +19,19 @@ function PetCard(props) {
         </span>
       </p>
 
-      <button onClick={props.onEditar}>
-        Editar
-      </button>
+      {props.autenticado && (
+        <>
+          <button onClick={props.onEditar}>
+            Editar
+          </button>
 
-      <button onClick={props.onExcluir}>
-        Excluir
-      </button>
-    </div>
+          <button onClick={props.onExcluir}>
+            Excluir
+          </button>
+        </>
+      )}
+      
+      </div>
   )
 }
 

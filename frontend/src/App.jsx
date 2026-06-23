@@ -26,6 +26,9 @@ function App() {
   const [petEditando, setPetEditando] = useState(null)
   const [mensagem, setMensagem] = useState("")
   const [carregando, setCarregando] = useState(true)
+  const [token, setToken] = useState(
+    localStorage.getItem("token")
+  );
 
   const buscarPets = () => {
     setCarregando(true)
@@ -200,32 +203,45 @@ function App() {
     setPetEditando(null)
   }
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+  };
+
   return (
     <div className="container">
       <h1>Pet Adoption Platform</h1>
 
+      {token && (
+        <button onClick={logout}>
+          Sair
+        </button>
+      )}
+
       {mensagem && <p className="message">{mensagem}</p>}
 
-      <LoginForm />
+      {!token && <LoginForm onLogin={setToken} />}
 
-      <PetForm 
-        nome={nome} 
-        especie={especie}
-        idade={idade}
-        raca={raca}
-        imagem={imagem}
-        status={status}            
-        setNome={setNome}
-        setEspecie={setEspecie}  
-        setIdade={setIdade}
-        setRaca={setRaca}
-        setImagem={setImagem}
-        setStatus={setStatus}        
-        onSubmit={salvarPet}
-        petEditando={petEditando}
-        onCancelar={cancelarEdicao}
-        salvando={salvando}
-      />
+      {token && (
+        <PetForm 
+          nome={nome} 
+          especie={especie}
+          idade={idade}
+          raca={raca}
+          imagem={imagem}
+          status={status}                
+          setNome={setNome}
+          setEspecie={setEspecie}  
+          setIdade={setIdade}
+          setRaca={setRaca}
+          setImagem={setImagem}
+          setStatus={setStatus}        
+          onSubmit={salvarPet}
+          petEditando={petEditando}
+          onCancelar={cancelarEdicao}
+          salvando={salvando}
+        />
+      )}
 
     <div className="filters">
       <input
@@ -282,6 +298,7 @@ function App() {
             raca={pet.raca}
             imagem={pet.imagem}
             status={pet.status}
+            autenticado={!!token}  
             onEditar={() => {
               setPetEditando(pet)
               setNome(pet.nome)

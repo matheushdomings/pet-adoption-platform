@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { login } from "../services/authService";
 
-function LoginForm() {
+function LoginForm({ onLogin }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
@@ -12,6 +12,7 @@ function LoginForm() {
       .then((response) => response.json())
       .then((data) => {
         localStorage.setItem("token", data.token);
+        onLogin(data.token);
         console.log("Token salvo:", data.token);
       })
       .catch((error) => {
