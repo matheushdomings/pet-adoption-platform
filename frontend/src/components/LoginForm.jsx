@@ -4,25 +4,33 @@ import { login } from "../services/authService";
 function LoginForm({ onLogin }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [mensagem, setMensagem] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setMensagem("");
 
     login({ email, senha })
       .then((response) => response.json())
       .then((data) => {
-        localStorage.setItem("token", data.token);
-        onLogin(data.token);
-        console.log("Token salvo:", data.token);
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+          onLogin(data.token, "Login realizado com sucesso!");
+        } else {
+          setMensagem(data.mensagem || "Erro ao fazer login.");
+        }
       })
       .catch((error) => {
         console.error("Erro ao fazer login:", error);
+        setMensagem("Erro ao conectar com o servidor.");
       });
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <h2>Login</h2>
+
+      {mensagem && <p>{mensagem}</p>}
 
       <input
         type="email"

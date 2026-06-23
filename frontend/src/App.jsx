@@ -66,6 +66,15 @@ function App() {
     }
 
     deletePet(id)
+      .then((response) => {
+        if (response.status === 401) {
+          logout()
+          setMensagem("Sessão expirada. Faça login novamente.")
+          throw new Error("Token inválido ou expirado")
+        }
+
+        return response.json()
+      })
       .then(() => {
         buscarPets()
         setMensagem("Pet excluído com sucesso!")
@@ -73,11 +82,13 @@ function App() {
         setTimeout(() => {
           setMensagem("")
         }, 3000)
-
       })
       .catch((error) => {
         console.error("Erro ao excluir pet:", error)
-        setMensagem("Erro ao excluir pet.")
+
+        if (error.message !== "Token inválido ou expirado") {
+          setMensagem("Erro ao excluir pet.")
+        }
 
         setTimeout(() => {
           setMensagem("")
@@ -114,6 +125,15 @@ function App() {
 
     if (petEditando) {
       updatePet(petEditando._id, novoPet)
+        .then((response) => {
+          if (response.status === 401) {
+            logout()
+            setMensagem("Sessão expirada. Faça login novamente.")
+            throw new Error("Token inválido ou expirado")
+          }
+
+          return response.json()
+        })
         .then(() => {
           buscarPets()
           setMensagem("Pet atualizado com sucesso!")
@@ -133,7 +153,10 @@ function App() {
         })
         .catch((error) => {
           console.error("Erro ao editar pet:", error)
-          setMensagem("Erro ao atualizar pet.")
+
+          if (error.message !== "Token inválido ou expirado") {
+            setMensagem("Erro ao atualizar pet.")
+          }
 
           setTimeout(() => {
             setMensagem("")
@@ -143,6 +166,15 @@ function App() {
         })
     } else {
       createPet(novoPet)
+        .then((response) => {
+          if (response.status === 401) {
+            logout()
+            setMensagem("Sessão expirada. Faça login novamente.")
+            throw new Error("Token inválido ou expirado")
+          }
+
+          return response.json()
+        })
         .then(() => {
           buscarPets()
           setMensagem("Pet cadastrado com sucesso!")
@@ -156,13 +188,15 @@ function App() {
           setIdade("")
           setRaca("")
           setImagem("")
-          setStatus("Disponível") 
+          setStatus("Disponível")
           setSalvando(false)
-          
         })
         .catch((error) => {
           console.error("Erro ao cadastrar pet:", error)
-          setMensagem("Erro ao cadastrar pet.")
+
+          if (error.message !== "Token inválido ou expirado") {
+            setMensagem("Erro ao cadastrar pet.")
+          }
 
           setTimeout(() => {
             setMensagem("")
@@ -208,6 +242,15 @@ function App() {
     setToken(null);
   };
 
+  const handleLogin = (novoToken, mensagemLogin) => {
+    setToken(novoToken);
+    setMensagem(mensagemLogin);
+
+    setTimeout(() => {
+      setMensagem("");
+    }, 3000);
+  };
+
   return (
     <div className="container">
       <h1>Pet Adoption Platform</h1>
@@ -220,7 +263,7 @@ function App() {
 
       {mensagem && <p className="message">{mensagem}</p>}
 
-      {!token && <LoginForm onLogin={setToken} />}
+      {!token && <LoginForm onLogin={handleLogin} />}
 
       {token && (
         <PetForm 
