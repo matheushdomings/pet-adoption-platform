@@ -5,10 +5,13 @@ function LoginForm({ onLogin }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [mensagem, setMensagem] = useState("");
+  const [carregandoLogin, setCarregandoLogin] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setMensagem("");
+
+    setCarregandoLogin(true);
 
     login({ email, senha })
       .then((response) => response.json())
@@ -22,10 +25,13 @@ function LoginForm({ onLogin }) {
         } else {
           setMensagem(data.mensagem || "Erro ao fazer login.");
         }
+
+        setCarregandoLogin(false);
       })
       .catch((error) => {
         console.error("Erro ao fazer login:", error);
         setMensagem("Erro ao conectar com o servidor.");
+        setCarregandoLogin(false);
       });
   };
 
@@ -49,8 +55,8 @@ function LoginForm({ onLogin }) {
         onChange={(event) => setSenha(event.target.value)}
       />
 
-      <button type="submit">
-        Entrar
+      <button type="submit" disabled={carregandoLogin}>
+        {carregandoLogin ? "Entrando..." : "Entrar"}
       </button>
     </form>
   );
