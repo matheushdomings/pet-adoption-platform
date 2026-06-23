@@ -14,8 +14,11 @@ function LoginForm({ onLogin }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.token) {
-          localStorage.setItem("token", data.token);
-          onLogin(data.token, "Login realizado com sucesso!");
+          localStorage.setItem(
+            "usuario",
+            JSON.stringify(data.usuario)
+          );
+          onLogin(data.token, data.usuario, "Login realizado com sucesso!");
         } else {
           setMensagem(data.mensagem || "Erro ao fazer login.");
         }

@@ -26,6 +26,9 @@ function App() {
   const [petEditando, setPetEditando] = useState(null)
   const [mensagem, setMensagem] = useState("")
   const [carregando, setCarregando] = useState(true)
+  const [usuario, setUsuario] = useState(
+    JSON.parse(localStorage.getItem("usuario"))
+  );
   const [token, setToken] = useState(
     localStorage.getItem("token")
   );
@@ -239,11 +242,17 @@ function App() {
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("usuario");
     setToken(null);
+    setUsuario(null);
   };
 
-  const handleLogin = (novoToken, mensagemLogin) => {
+  const handleLogin = (novoToken, novoUsuario, mensagemLogin) => {
+    localStorage.setItem("token", novoToken);
+    localStorage.setItem("usuario", JSON.stringify(novoUsuario));
+
     setToken(novoToken);
+    setUsuario(novoUsuario);
     setMensagem(mensagemLogin);
 
     setTimeout(() => {
@@ -256,9 +265,15 @@ function App() {
       <h1>Pet Adoption Platform</h1>
 
       {token && (
-        <button onClick={logout}>
-          Sair
-        </button>
+        <div className="user-area">
+          <span>
+            Olá, {usuario?.nome}
+          </span>
+
+          <button onClick={logout}>
+            Sair
+          </button>
+        </div>
       )}
 
       {mensagem && <p className="message">{mensagem}</p>}
