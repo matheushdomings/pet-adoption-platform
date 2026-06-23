@@ -70,7 +70,14 @@ const loginUser = async (req, res, next) => {
   }
 };
 
+const getMe = async (req, res) => {
+  const usuario = await User.findById(req.userId).select("-senha");
+
+  res.json(usuario);
+};
+
 module.exports = {
   registerUser,
-  loginUser
+  loginUser,
+  getMe
 };

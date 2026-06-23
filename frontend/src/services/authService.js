@@ -9,3 +9,11 @@ export const login = (userData) => {
     body: JSON.stringify(userData)
   });
 };
+
+export const getMe = (token) => {
+  return fetch(`${API_URL}/me`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+};

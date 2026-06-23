@@ -10,6 +10,7 @@ import './App.css'
 import PetForm from "./components/PetForm.jsx"
 import PetCard from "./components/PetCard"
 import LoginForm from "./components/LoginForm";
+import { getMe } from "./services/authService";
 
 function App() {
   const [pets, setPets] = useState([])
@@ -57,6 +58,26 @@ function App() {
 
   useEffect(() => {
     buscarPets()
+
+    if (token) {
+      getMe(token)
+        .then((response) => {
+          if (response.status === 401) {
+            logout()
+            return
+          }
+
+          return response.json()
+        })
+        .then((data) => {
+          if (data) {
+            setUsuario(data)
+          }
+        })
+        .catch((error) => {
+          console.error("Erro ao validar token:", error)
+        })
+    }
   }, [])
 
   const excluirPet = (id) => {
