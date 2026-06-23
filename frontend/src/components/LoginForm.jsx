@@ -2,6 +2,7 @@ import { useState } from "react";
 import { login } from "../services/authService";
 
 function LoginForm({ onLogin }) {
+  console.log("Renderizou LoginForm");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [mensagem, setMensagem] = useState("");
@@ -36,26 +37,30 @@ function LoginForm({ onLogin }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="login-form" onSubmit={handleSubmit}>
       <h2>Login</h2>
 
-      {mensagem && <p>{mensagem}</p>}
+      {mensagem && <p className="login-message">{mensagem}</p>}
 
       <input
+        className="login-input"
         type="email"
         placeholder="E-mail"
         value={email}
+        autoComplete="email"
         onChange={(event) => setEmail(event.target.value)}
       />
 
       <input
+        className="login-input"
         type="password"
         placeholder="Senha"
         value={senha}
+        autoComplete="current-password"
         onChange={(event) => setSenha(event.target.value)}
       />
 
-      <button type="submit" disabled={carregandoLogin}>
+      <button className="login-button" type="submit" disabled={carregandoLogin}>
         {carregandoLogin ? "Entrando..." : "Entrar"}
       </button>
     </form>
