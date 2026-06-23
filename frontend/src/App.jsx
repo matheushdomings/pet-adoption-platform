@@ -266,11 +266,11 @@ function App() {
 
       {token && (
         <div className="user-area">
-          <span>
+          <span className="user-name">
             Olá, {usuario?.nome}
           </span>
 
-          <button onClick={logout}>
+          <button className="logout-button" onClick={logout}>
             Sair
           </button>
         </div>
