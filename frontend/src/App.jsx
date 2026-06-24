@@ -142,7 +142,6 @@ function App() {
     novoPet.append("idade", idade)
     novoPet.append("raca", raca)
     novoPet.append("status", status)
-
     if (imagem) {
       novoPet.append("imagem", imagem)
     }

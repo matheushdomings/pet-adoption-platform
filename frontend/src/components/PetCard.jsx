@@ -3,7 +3,7 @@ function PetCard(props) {
     <div className="pet-card">
       {props.imagem && (
         <img
-          src={`${import.meta.env.VITE_API_URL}${props.imagem}`}
+          src={props.imagem}
           alt={props.nome}
           className="pet-image"
         />

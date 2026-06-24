@@ -50,9 +50,11 @@ function PetForm(props) {
           <label>Imagem (URL)</label>
 
           <input
-            key={props.petEditando ? props.petEditando._id : "novo-pet"}
             type="file"
-            onChange={(event) => props.setImagem(event.target.files[0])}
+            name="imagem" 
+            onChange={(event) => {
+              props.setImagem(event.target.files[0])
+            }}
           />
         </div>
         

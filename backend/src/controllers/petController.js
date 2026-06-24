@@ -1,4 +1,26 @@
 const Pet = require("../models/Pet");
+const cloudinary = require("../config/cloudinary")
+
+const streamifier = require("streamifier")
+
+const uploadImagem = (buffer) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      {
+        folder: "pet-adoption-platform"
+      },
+      (error, result) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(result)
+        }
+      }
+    )
+
+    streamifier.createReadStream(buffer).pipe(stream)
+  })
+}
 
 const getPets = async (req, res, next) => {
     try {
@@ -36,7 +58,9 @@ const createPet = async (req, res, next) => {
     }
 
     if (req.file) {
-      petData.imagem = `/uploads/${req.file.filename}`
+      const resultadoUpload = await uploadImagem(req.file.buffer)
+
+      petData.imagem = resultadoUpload.secure_url
     }
 
     const pet = await Pet.create(petData)
@@ -44,6 +68,7 @@ const createPet = async (req, res, next) => {
     res.status(201).json(pet)
 
   } catch (error) {
+    console.error("Erro ao criar pet:", error)
     next(error)
   }
 }
@@ -69,7 +94,9 @@ const updatePet = async (req, res, next) => {
     }
 
     if (req.file) {
-      petData.imagem = `/uploads/${req.file.filename}`
+      const resultadoUpload = await uploadImagem(req.file.buffer)
+
+      petData.imagem = resultadoUpload.secure_url
     }
 
     const petAtualizado = await Pet.findByIdAndUpdate(
