@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 import {
   getPets,
@@ -33,6 +33,7 @@ function App() {
   const [token, setToken] = useState(
     localStorage.getItem("token")
   );
+  const inputImagemRef = useRef(null);
 
   const buscarPets = () => {
     setCarregando(true)
@@ -211,6 +212,11 @@ function App() {
           setIdade("")
           setRaca("")
           setImagem("")
+
+          if (inputImagemRef.current) {
+            inputImagemRef.current.value = ""
+          }
+          
           setStatus("Disponível")
           setSalvando(false)
         })
@@ -318,6 +324,7 @@ function App() {
           petEditando={petEditando}
           onCancelar={cancelarEdicao}
           salvando={salvando}
+          inputImagemRef={inputImagemRef}
         />
       )}
 

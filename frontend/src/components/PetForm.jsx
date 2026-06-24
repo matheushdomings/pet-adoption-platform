@@ -1,3 +1,5 @@
+import { useState, useRef } from "react";
+
 function PetForm(props) {
   return (
     <>
@@ -50,6 +52,7 @@ function PetForm(props) {
           <label>Imagem (URL)</label>
 
           <input
+            ref={props.inputImagemRef}
             type="file"
             name="imagem" 
             onChange={(event) => {
@@ -76,7 +79,7 @@ function PetForm(props) {
             disabled={props.salvando}
           >
             {props.salvando
-              ? "Salvando..."
+              ? "Enviando imagem..."
               : props.petEditando
                 ? "Salvar alterações"
                 : "Cadastrar"}
