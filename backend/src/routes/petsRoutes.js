@@ -6,7 +6,6 @@ const {
     deletePet
 } = require("../controllers/petController");
 
-const Pet = require("../models/Pet");
 const upload = require("../config/multer")
 const authMiddleware = require("../middlewares/authMiddleware");
 
