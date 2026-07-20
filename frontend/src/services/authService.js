@@ -10,6 +10,16 @@ export const login = (userData) => {
   });
 };
 
+export const register = (userData) => {
+  return fetch(`${API_URL}/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(userData)
+  });
+};
+
 export const getMe = (token) => {
   return fetch(`${API_URL}/me`, {
     headers: {

@@ -11,6 +11,7 @@ import PetForm from "./components/PetForm.jsx"
 import PetCard from "./components/PetCard"
 import LoginForm from "./components/LoginForm";
 import { getMe } from "./services/authService";
+import RegisterForm from "./components/RegisterForm";
 
 function App() {
   const [pets, setPets] = useState([])
@@ -27,6 +28,7 @@ function App() {
   const [petEditando, setPetEditando] = useState(null)
   const [mensagem, setMensagem] = useState("")
   const [carregando, setCarregando] = useState(true)
+  const [modoCadastro, setModoCadastro] = useState(false);
   const [usuario, setUsuario] = useState(
     JSON.parse(localStorage.getItem("usuario"))
   );
@@ -304,7 +306,26 @@ function App() {
 
       {mensagem && <p className="message">{mensagem}</p>}
 
-      {!token && <LoginForm onLogin={handleLogin} />}
+      {!token && (
+        <>
+          {modoCadastro ? (
+            <RegisterForm
+              onRegisterSuccess={() => setModoCadastro(false)}
+            />
+          ) : (
+            <LoginForm onLogin={handleLogin} />
+          )}
+
+          <button
+            className="login-button"
+            onClick={() => setModoCadastro(!modoCadastro)}
+          >
+            {modoCadastro
+              ? "Já tenho conta"
+              : "Criar uma conta"}
+          </button>
+        </>
+      )}
 
       {token && (
         <PetForm 
