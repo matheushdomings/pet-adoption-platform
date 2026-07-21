@@ -1,4 +1,4 @@
-const errorMiddleware = (error, req, res, next) => {
+const errorMiddleware = (error, req, res, _next) => {
     if (error.name === "ValidationError") {
         return res.status(400).json({
             mensagem: "Erro de validação",

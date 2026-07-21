@@ -33,12 +33,12 @@ describe("Testes de pets", () => {
 });
 
 it("deve criar um pet para um usuário autenticado", async () => {
-  const registerResponse = await request(app)
+  await request(app)
     .post("/auth/register")
     .send({
-        nome: "Usuário Criador",
-        email: "criador@email.com",
-        senha: "123456"
+      nome: "Usuário Criador",
+      email: "criador@email.com",
+      senha: "123456"
     });
 
     const user = await User.findOne({
