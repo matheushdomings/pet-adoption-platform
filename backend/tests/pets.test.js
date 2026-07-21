@@ -302,3 +302,71 @@ it("deve retornar erro ao buscar pet inexistente", async () => {
     "Pet não encontrado"
   );
 });
+
+it("deve retornar erro para ID de pet inválido", async () => {
+  const response = await request(app)
+    .get("/pets/id-invalido");
+
+  expect(response.statusCode).toBe(400);
+
+  expect(response.body.mensagem).toBe(
+    "ID inválido"
+  );
+});
+
+it("deve retornar erro ao criar pet sem campo obrigatório", async () => {
+  await request(app)
+    .post("/auth/register")
+    .send({
+      nome: "Usuário Validação",
+      email: "validacao@email.com",
+      senha: "123456"
+    });
+
+  const login = await request(app)
+    .post("/auth/login")
+    .send({
+      email: "validacao@email.com",
+      senha: "123456"
+    });
+
+  const token = login.body.token;
+
+  const response = await request(app)
+    .post("/pets")
+    .set("Authorization", `Bearer ${token}`)
+    .field("especie", "Cachorro");
+
+  expect(response.statusCode).toBe(400);
+
+  expect(response.body.mensagem).toBe(
+    "Erro de validação"
+  );
+});
+
+it("não deve permitir acesso com token inválido", async () => {
+  const response = await request(app)
+    .post("/pets")
+    .set("Authorization", "Bearer token-invalido")
+    .field("nome", "Rex")
+    .field("especie", "Cachorro");
+
+  expect(response.statusCode).toBe(401);
+
+  expect(response.body.mensagem).toBe(
+    "Token inválido"
+  );
+});
+
+it("não deve permitir criar pet sem autenticação", async () => {
+  const response = await request(app)
+    .post("/pets")
+    .field("nome", "Rex")
+    .field("especie", "Cachorro");
+
+  expect(response.statusCode).toBe(401);
+
+  expect(response.body.mensagem).toBe(
+    "Token não fornecido"
+  );
+});
