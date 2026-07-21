@@ -36,6 +36,8 @@ it("deve realizar login de um usuário", async () => {
       senha: "123456"
     });
 
+  console.log(response.body);  
+
   expect(response.statusCode).toBe(200);
 
   expect(response.body.mensagem).toBe(
