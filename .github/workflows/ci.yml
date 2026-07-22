@@ -27,7 +27,7 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run tests
         env:
@@ -56,13 +56,13 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build frontend
         run: npm run build
 
 
-  build-backend-docker:
+  validate-backend-docker:
     name: Build Backend Docker Image
     runs-on: ubuntu-latest
 
