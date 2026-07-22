@@ -63,7 +63,7 @@ jobs:
 
 
   validate-backend-docker:
-    name: Build Backend Docker Image
+    name: Validate Backend Docker Image
     runs-on: ubuntu-latest
 
     steps:
