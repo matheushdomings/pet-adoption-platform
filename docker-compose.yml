@@ -7,12 +7,3 @@ services:
       - "3000:3000"
     env_file:
       - ./backend/.env
-
-  frontend:
-    build:
-      context: ./frontend
-      args:
-        VITE_API_URL: http://localhost:3000
-    container_name: pet-adoption-frontend
-    ports:
-      - "8080:80"

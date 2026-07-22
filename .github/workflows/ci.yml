@@ -10,6 +10,7 @@ on:
 
 jobs:
   test-backend:
+    name: Test Backend
     runs-on: ubuntu-latest
 
     defaults:
@@ -34,9 +35,11 @@ jobs:
         run: npm test
 
       - name: Run lint
-        run: npm run lint  
+        run: npm run lint
 
-  build-frontend:
+
+  validate-frontend:
+    name: Validate Frontend Build
     runs-on: ubuntu-latest
 
     defaults:
@@ -58,15 +61,14 @@ jobs:
       - name: Build frontend
         run: npm run build
 
-  build-docker:
+
+  build-backend-docker:
+    name: Build Backend Docker Image
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build Backend Docker Image
-        run: docker build -t backend ./backend
-
-      - name: Build Frontend Docker Image
-        run: docker build -t frontend ./frontend
+      - name: Build Docker image
+        run: docker build -t pet-adoption-backend ./backend
